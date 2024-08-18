@@ -1,0 +1,17 @@
+const express= require('express')
+const apiController = require('./../controller/apiController')
+const router= express.Router()
+
+router.route('/').get(apiController.bcMiddleware, apiController.employeeList)
+router.route('/').post(apiController.bcMiddleware, apiController.employeePaySlip)
+router.route('/leavePeriods').get(apiController.bcMiddleware, apiController.leavePeriod)
+router.route('/leaveTypes').get(apiController.bcMiddleware, apiController.leaveTypes)
+router.route('/leave').post(apiController.bcMiddleware, apiController.postLeave)
+router.route('/complaint').post(apiController.bcMiddleware, apiController.complaintForm)
+router.route('/payroll').get(apiController.bcMiddleware, apiController.payroll)
+router.route('/payrollDate').get(apiController.bcMiddleware, apiController.payrollDate)
+router.route('/card/:employeeId').get(apiController.bcMiddleware, apiController.employeecard)
+router.route('/payslip/:employeeId').get(apiController.bcMiddleware, apiController.payslipcard)
+router.route('/history').get(apiController.bcMiddleware, apiController.leavehistory)
+router.route('/complaint').get(apiController.bcMiddleware, apiController.complainthistory)
+module.exports= router;
