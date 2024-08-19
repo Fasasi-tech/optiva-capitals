@@ -77,9 +77,40 @@ exports.employeePaySlip = async(req, res) =>{
         
         // Sending back the error message and status code to the frontend
         if (error.response && error.response.status) {
-            res.status(error.response.status).json({ error: error.response.data || 'Failed to generate leave types' });
+            res.status(error.response.status).json({ error: error.response.data || 'Failed to generate payslip' });
         } else {
             res.status(500).json({ error: 'Failed to generate payslip' });
+        }
+    }
+};
+
+exports.employeePicture = async(req, res) =>{
+    const { accessToken, tenantId, environment, companyId } = req.bcConfig;
+    const url = `https://api.businesscentral.dynamics.com/v2.0/${tenantId}/${environment}/ODataV4/pictureInteg_GetPicture?Company=9981f8b7-081c-ec11-bb75-000d3a2200ea`;
+
+    const employeePaySlip={
+        employeeNo:req.body.employeeNo,
+
+    }
+    try{
+        
+        const response = await axios.post(url, employeePaySlip, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+        });
+        // console.log(response)
+        // console.log('Employee created successfully:', response.data);
+        res.status(201).json(response.data); 
+    }catch (error) {
+        console.error('Error generating picture:', error.response ? error.response.data : error.message);
+        
+        // Sending back the error message and status code to the frontend
+        if (error.response && error.response.status) {
+            res.status(error.response.status).json({ error: error.response.data || 'Failed to generate picture' });
+        } else {
+            res.status(500).json({ error: 'Failed to generate picture' });
         }
     }
 };

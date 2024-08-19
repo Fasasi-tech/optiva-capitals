@@ -4,6 +4,7 @@ const router= express.Router()
 
 router.route('/').get(apiController.bcMiddleware, apiController.employeeList)
 router.route('/').post(apiController.bcMiddleware, apiController.employeePaySlip)
+router.route('/picture').post(apiController.bcMiddleware, apiController.employeePicture)
 router.route('/leavePeriods').get(apiController.bcMiddleware, apiController.leavePeriod)
 router.route('/leaveTypes').get(apiController.bcMiddleware, apiController.leaveTypes)
 router.route('/leave').post(apiController.bcMiddleware, apiController.postLeave)
